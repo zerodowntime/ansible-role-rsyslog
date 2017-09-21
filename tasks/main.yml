@@ -1,0 +1,57 @@
+---
+# tasks file for roles/rsyslog
+
+
+- assert: { that: "ansible_distribution in ['CentOS', 'Ubuntu']" }
+  tags: assert
+
+- debug: var=ansible_pkg_mgr
+
+- name: "rsyslog | include os specific variables"
+  include_vars: "{{ item }}"
+  with_first_found:
+     - "{{ ansible_distribution | lower }}.yml"
+  tags: [always]
+
+
+- name: "rsyslog | install rsyslog"
+  package:
+     name: "{{ rsyslog__pacakge_name }}"
+     state: "{{ rsyslog__package_state }}"
+  tags: ['rsyslog','install']
+
+
+- name: "rsyslog | configure daemon "
+  template:
+    src: templates/rsyslog.daemon.config.j2
+    dest: "{{ rsyslog__daemon_environment_file }}"
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+  notify: "Restart rsyslog"
+  tags: ['rsyslog','configure']
+
+
+- name: "rsyslog | configure rsyslog"
+  template:
+    src: "templates/{{ ansible_distribution | lower }}/rsyslog.conf.{{ ansible_distribution | lower }}.{{ ansible_distribution_major_version | int }}.j2"
+    dest: "{{ rsyslog__config_file }}"
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: syslog_conf_t
+  notify: "Restart rsyslog"
+  tags: ['rsyslog','configure']
+
+
+- name: "rsyslog | ensure that rsyslog is running ane enabled"
+  service:
+    name: rsyslog
+    state: started
+    enabled: yes
+  tags: ['rsyslog']

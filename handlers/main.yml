@@ -1,0 +1,8 @@
+---
+# handlers file for roles/rsyslog
+
+- name: "Restart rsyslog"
+  service:
+    name: rsyslog
+    state: restarted
+  tags: ['rsyslog']

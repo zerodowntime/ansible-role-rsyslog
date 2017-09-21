@@ -1,0 +1,11 @@
+---
+# defaults file for roles/rsyslog
+
+# present, latest
+rsyslog__package_state: 'present'
+
+
+#rsyslog__options:
+#  - '-4'
+#  - '-r'
+rsyslog__options: []

@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Krzysztof Kotewa
+  description: rsyslog
+  company: ZeroDowntime
+  license: license BSD
+
+  min_ansible_version: 2.3
+
+  platforms:
+  - name: CentOS
+    versions:
+      - 6
+      - 7
+  - name: Ubuntu
+    versions:
+      - 14.04
+      - 16.4
+
+dependencies: []
+
+
+#requirements:
+#libselinux-python *on centos6
