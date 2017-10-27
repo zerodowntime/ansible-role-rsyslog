@@ -18,7 +18,7 @@ Supported platform:
 Role Variables
 --------------
 
-TODO:
+TODO: wypisac zmienne
 
 Dependencies
 ------------
@@ -30,6 +30,7 @@ In Centos host 6 need install `libselinux-python` packages
 Example Playbook
 ----------------
 
+TODO: poprawic opis
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: all
