@@ -1,23 +1,37 @@
 ---
-# defaults file for roles/rsyslog
+# rsyslog/defaults/main.yml
 
-# present, latest
+# rsyslog__package_state:
+# State for installated packages: `present`,`latest`
 rsyslog__package_state: 'present'
 
 
-#rsyslog__options:
+# rsyslog__options:
+# Options for rsyslogd daemon
 #  - '-4'
 #  - '-r'
 rsyslog__options: []
 
+# rsyslog__modload:
+# List of rsyslog loaded extra modules
+rsyslog__modload: []
 
-# rsyslog__modload: []
-rsyslog__modload:
- - imudp
-
-
+# rsyslog__imudp_port:
+# imudp listen port
 rsyslog__imudp_port: 514
+
+
+# rsyslog__imudp_address
+# imudp listen address
 rsyslog__imudp_address: 127.0.0.1
 
 
+# rsyslog__rules:
+# List of extra rsyslog.d configs
+# Example
+#  rsyslog__rules:
+#    10-forward: '*.* @192.168.0.10:514'
+#    50-haproxy: |
+#      if $programname startswith 'haproxy' then /var/log/haproxy.log
+#      & stop
 rsyslog__rules: {}
