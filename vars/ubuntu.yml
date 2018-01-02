@@ -1,4 +1,5 @@
 rsyslog__pacakge_name: rsyslog
 rsyslog__config_file: '/etc/rsyslog.conf'
+rsyslog__confd_dir:  '/etc/rsyslog.d'
 rsyslog__daemon_environment_file: '/etc/default/rsyslog'
 rsyslog__daemon_environment_conf_name: 'RSYSLOGD_OPTIONS'

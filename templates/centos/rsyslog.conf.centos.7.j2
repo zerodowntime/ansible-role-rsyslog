@@ -38,7 +38,7 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 #$ActionFileEnableSync on
 
 # Include all config files in /etc/rsyslog.d/
-$IncludeConfig /etc/rsyslog.d/*.conf
+$IncludeConfig {{ rsyslog__confd_dir }}/*.conf
 
 # Turn off message reception via local log socket;
 # local messages are retrieved through imjournal now.
