@@ -60,6 +60,19 @@
   tags: ['rsyslog','configure']
 
 
+- name: "rsyslog | configure rsyslog.d"
+  template:
+    src: "templates/rules.conf"
+    dest: "{{ rsyslog__confd_dir }}/{{ item }}.conf"
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: syslog_conf_t
+  with_items: "{{ rsyslog__rules }}"
+  notify: "Restart rsyslog"
+  tags: ['rsyslog','configure']
+
+
 - name: "rsyslog | ensure that rsyslog is running ane enabled"
   service:
     name: rsyslog
