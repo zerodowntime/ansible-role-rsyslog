@@ -13,9 +13,12 @@ $ModLoad imjournal # provides access to the systemd journal
 #$ModLoad imklog # reads kernel messages (the same are read from journald)
 #$ModLoad immark  # provides --MARK-- message capability
 
+{% if 'imudp' in rsyslog__modload %}
 # Provides UDP syslog reception
-#$ModLoad imudp
-#$UDPServerRun 514
+$ModLoad imudp
+$UDPServerRun {{  rsyslog__imudp_port }}
+$UDPServerAddress {{ rsyslog__imudp_address }}
+{% endif %}
 
 # Provides TCP syslog reception
 #$ModLoad imtcp

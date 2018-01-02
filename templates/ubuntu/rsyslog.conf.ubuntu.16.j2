@@ -16,9 +16,11 @@ module(load="imuxsock") # provides support for local system logging
 module(load="imklog")   # provides kernel logging support
 #module(load="immark")  # provides --MARK-- message capability
 
+{% if 'imudp' in rsyslog__modload %}
 # provides UDP syslog reception
-#module(load="imudp")
-#input(type="imudp" port="514")
+module(load="imudp")
+input(type="imudp" port="{{ rsyslog__imudp_port }}" Address="{{ rsyslog__imudp_address }}")
+{% endif %}
 
 # provides TCP syslog reception
 #module(load="imtcp")

@@ -9,3 +9,12 @@ rsyslog__package_state: 'present'
 #  - '-4'
 #  - '-r'
 rsyslog__options: []
+
+
+# rsyslog__modload: []
+rsyslog__modload:
+ - imudp
+
+
+rsyslog__imudp_port: 514
+rsyslog__imudp_address: 127.0.0.1
