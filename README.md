@@ -1,80 +1,67 @@
-rsyslog
-=========
+# rsyslog
 
-Install and manage rsyslog configuration
+Installation and configuration of rsyslog software utility.
 
-Requirements
-------------
+## Requirements
 
-This role requires Ansible 2.3 or higher.
-Supported platform:
-- CentOS
-    - 6
-    - 7
+- Ansible >= 2.3+
+
+### Supported platforms
+
+- EL
+  - 6
+  - 7
 - Ubuntu
-    - 14.04
-    - 16.4
+  - 14.04
+  - 16.04
 
-Role default Variables
---------------
+## Default role variables
 
-var name                            | type   | default    | desctiption
------------------------------------ | -----  | ---------- | -------------------------------------------
-rsyslog__package_state              | string | present    | State for installated packages: `present`,`latest`
-rsyslog__options                    | list   | []         | Options for rsyslogd daemon
-rsyslog__modload                    | List   | []         | List of rsyslog loaded extra modules
-rsyslog__imudp_port                 | int    | 514        | imudp listen port
-rsyslog__imudp_address              | string | 127.0.0.1  | imudp listen address
-rsyslog__rules                      | dict   | {}         | List of extra rsyslog.d configs: format key:value
+| Name | Description | Type | Default | Required |
+| -----| ----------- | :--: | :------:| :------: |
+| rsyslog__package_state | State of rsyslog package. | string | `present` | True |
+| rsyslog__options | Options to add to the initial script for rsyslog daemon. | list | `[]` | True |
+| rsyslog__modload | List of rsyslog loaded extra modules. | list | `[]` | False |
+| rsyslog__imudp_port | UDP port to be open for rsyslog log input. | int | `514` | False |
+| rsyslog__imudp_address | IP source address for rsyslog log input. | my_example_type | `127.0.0.1` | False |
+| rsyslog__rules | List of extra rsyslog.d configurations. | list | `{}` | True |
 
+**All default variables are described in [defaults/main.yml](defaults/main.yml) file.**
 
-Role Variables
---------------
+## Static role variables
 
-var name                               | type   | desctiption
--------------------------------------- | -----  | -------------------------------------------
-rsyslog__pacakge_name                  | string | Name for installated packages
-rsyslog__config_file                   | string | Config file path
-rsyslog__confd_dir                     | string | rsyslog.d config dir
-rsyslog__daemon_environment_file       | string | rsyslog daemon environment file
-rsyslog__daemon_environment_conf_name  | string | rsyslog daemon oprion enviroment name
+This section describes static variables implemented in the role.
 
 
-Dependencies
-------------
 
-In Centos host 6 need install `libselinux-python` packages
+### centos variables
 
-    yum install libselinux-python
+| Name | Description | Type | Default |
+| -----| :---------: | :--: | ------- |
+| rsyslog__pacakge_name | Install rsyslog software utility. | string | `rsyslog` |
+| rsyslog__config_file | Path to the rsyslogd configuration file. | string | `/etc/rsyslog.conf` |
+| rsyslog__confd_dir | Path to the directory with all the additional configuration files for rsyslog. | string | `/etc/rsyslog.d` |
+| rsyslog__daemon_environment_file | Path to the file with additional configuration for rsyslog daemon. | string | `/etc/default/rsyslog` |
+| rsyslog__daemon_environment_conf_name | Adding options to the rsyslog daemon on the start. | string | `RSYSLOGD_OPTIONS` |
 
-Example Playbook
-----------------
+**All static centos variables are described in [vars/centos.yml](vars/centos.yml)**
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-```
-    - hosts: all
-      roles:
-      - { role: service_rsyslog }
-```
+### ubuntu variables
 
-```
-    - hosts: all
-      roles:
-      - role: service_rsyslog
-        rsyslog__rules:
-          10-forward: '*.* @192.168.0.10:514'
-          50-haproxy: |
-            if $programname startswith 'haproxy' then /var/log/haproxy.log
-            & stop      
-```
+| Name | Description | Type | Default |
+| -----| :---------: | :--: | ------- |
+| rsyslog__pacakge_name | Install rsyslog software utility. | string | `rsyslog` |
+| rsyslog__config_file | Path to the rsyslogd configuration file. | string | `/etc/rsyslog.conf` |
+| rsyslog__confd_dir | Path to the directory with all the additional configuration files for rsyslog. | string | `/etc/rsyslog.d` |
+| rsyslog__daemon_environment_file | Path to the file with additional configuration for rsyslog daemon. | string | `/etc/default/rsyslog` |
+| rsyslog__daemon_environment_conf_name | Adding options to the rsyslog daemon on the start. | string | `RSYSLOGD_OPTIONS` |
 
+**All static ubuntu variables are described in [vars/ubuntu.yml](vars/ubuntu.yml)**
 
-License
--------
+## License
 
-BSD
+[Apache License 2.0](LICENSE)
 
-Author Information
-------------------
+## Support
 
-Krzyszto.Kotewa@ZeroDowntime.pl
+ZeroDowntime Team <ansible@zerodowntime.pl>

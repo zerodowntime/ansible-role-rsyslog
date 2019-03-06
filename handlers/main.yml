@@ -1,5 +1,5 @@
 ---
-# handlers file for roles/rsyslog
+# zerodowntime.rsyslog/handlers/main.yml
 
 - name: "Restart rsyslog"
   service:

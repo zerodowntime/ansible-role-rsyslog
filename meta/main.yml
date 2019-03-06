@@ -1,23 +1,27 @@
-galaxy_info:
-  author: Krzysztof Kotewa
-  description: rsyslog
-  company: ZeroDowntime
-  license: license BSD
+---
+# zerodowntime.dns_tools/meta/main.yml
 
-  min_ansible_version: 2.3
+galaxy_info:
+  author: ZeroDowntime Team <ansible@zerodowntime.pl>
+  company: ZeroDowntime Sp. z o.o.
+  role_name: rsyslog
+  description: Installation and configuration of rsyslog software utility.
+  license: Apache License 2.0
+
+  min_ansible_version: 2.3+
 
   platforms:
-  - name: CentOS
-    versions:
-      - 6
-      - 7
-  - name: Ubuntu
-    versions:
-      - 14.04
-      - 16.4
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - 14.04
+        - 16.04
+  galaxy_tags:
+    - system
 
 dependencies: []
-
-
 #requirements:
 #libselinux-python *on centos6
