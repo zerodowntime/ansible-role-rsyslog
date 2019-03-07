@@ -1,29 +1,29 @@
 ---
-# tasks file for roles/rsyslog
+# zerodowntime.chrony/tasks/main.yml
 
-
-- assert: { that: "ansible_distribution in ['CentOS', 'Ubuntu']" }
+- name: "rsyslog | make sure the OS is one of the CentOS/Ubuntu distribution"
+  assert: { that: "ansible_distribution in ['CentOS', 'Ubuntu']" }
   tags:
-  - assert
-  - rsyslog
+    - assert
+    - rsyslog
 
 - name: "rsyslog | include os specific variables"
   include_vars: "{{ item }}"
   with_first_found:
-     - "{{ ansible_distribution | lower }}.yml"
+    - "{{ ansible_distribution | lower }}.yml"
   tags: always
 
 
 - name: "rsyslog | install rsyslog"
   package:
-     name: "{{ rsyslog__pacakge_name }}"
-     state: "{{ rsyslog__package_state }}"
+    name: "{{ rsyslog__pacakge_name }}"
+    state: "{{ rsyslog__package_state }}"
   tags:
-  - rsyslog
-  - rsyslog::install
+    - rsyslog
+    - rsyslog::install
 
 
-- name: 'rsyslog | confd dir'
+- name: "rsyslog | confd dir"
   file:
     path: "{{ rsyslog__confd_dir }}"
     state: directory
@@ -34,8 +34,8 @@
     serole: object_r
     setype: syslog_conf_t
   tags:
-  - rsyslog
-  - rsyslog::install
+    - rsyslog
+    - rsyslog::install
 
 
 - name: "rsyslog | configure daemon "
@@ -50,8 +50,8 @@
     setype: etc_t
   notify: "Restart rsyslog"
   tags:
-  - rsyslog
-  - rsyslog::configure
+    - rsyslog
+    - rsyslog::configure
 
 
 - name: "rsyslog | configure rsyslog"
@@ -66,8 +66,8 @@
     setype: syslog_conf_t
   notify: "Restart rsyslog"
   tags:
-  - rsyslog
-  - rsyslog::configure
+    - rsyslog
+    - rsyslog::configure
 
 
 - name: "rsyslog | configure rsyslog.d"
@@ -81,8 +81,8 @@
   with_items: "{{ rsyslog__rules }}"
   notify: "Restart rsyslog"
   tags:
-  - rsyslog
-  - rsyslog::configure
+    - rsyslog
+    - rsyslog::configure
 
 
 - name: "rsyslog | ensure that rsyslog is running"
@@ -90,14 +90,14 @@
     name: rsyslog
     state: started
   tags:
-  - rsyslog
-  - rsyslog::running
+    - rsyslog
+    - rsyslog::running
 
 
 - name: "rsyslog | ensure that rsyslog is enabled"
   service:
     name: rsyslog
-    enabled: yes
+    enabled: true
   tags:
-  - rsyslog
-  - rsyslog::enabled
+    - rsyslog
+    - rsyslog::enabled

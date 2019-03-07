@@ -1,34 +1,50 @@
 ---
-# rsyslog/defaults/main.yml
+# zerodowntime.rsyslog/defaults/main.yml
 
-# rsyslog__package_state:
-# State for installated packages: `present`,`latest`
+#? rsyslog__package_state:
+#?   type: string
+#?   description: State of rsyslog package.
+#?   required: True
+#?   default: present
 rsyslog__package_state: 'present'
 
-
-# rsyslog__options:
-# Options for rsyslogd daemon
+#? rsyslog__options:
+#?   type: list
+#?   description: Options to add to the initial script for rsyslog daemon.
+#?   required: True
+#?   default: []
+# examples:
 #  - '-4'
 #  - '-r'
 rsyslog__options: []
 
-# rsyslog__modload:
-# List of rsyslog loaded extra modules
+#? rsyslog__modload:
+#?   type: list
+#?   description: List of rsyslog loaded extra modules.
+#?   required: False
+#?   default: []
 rsyslog__modload: []
 
-# rsyslog__imudp_port:
-# imudp listen port
+#? rsyslog__imudp_port:
+#?   type: int
+#?   description: UDP port to be open for rsyslog log input.
+#?   required: False
+#?   default: 514
 rsyslog__imudp_port: 514
 
-
-# rsyslog__imudp_address
-# imudp listen address
+#? rsyslog__imudp_address:
+#?   type: my_example_type
+#?   description: IP source address for rsyslog log input.
+#?   required: False
+#?   default: 127.0.0.1
 rsyslog__imudp_address: 127.0.0.1
 
-
-# rsyslog__rules:
-# List of extra rsyslog.d configs
-# Example
+#? rsyslog__rules:
+#?   type: list
+#?   description: List of extra rsyslog.d configurations.
+#?   required: True
+#?   default: {}
+# example:
 #  rsyslog__rules:
 #    10-forward: '*.* @192.168.0.10:514'
 #    50-haproxy: |

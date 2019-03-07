@@ -1,0 +1,4 @@
+---
+# - src: git+git@git.zdt.io:ansible/roles/grafana.git
+#   name: grafana
+# libselinux-python *on centos6
